@@ -1,18 +1,19 @@
 from conans import ConanFile, AutoToolsBuildEnvironment, tools
 import os
 
-
 class GpxercesConan(ConanFile):
-    name = "gpxerces"
-    version = "v3.1.2-p1"
+    name = "xerces-c"
+    version = os.getenv("xerces_version")
     license = "Apache License v2.0"
-    url = "http://github.com/greenplum-db/conan"
+    url = os.getenv("conan_github_url")
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False]}
     default_options = "shared=True"
 
     def source(self):
-        self.run("git clone -b v3.1.2-p1 https://github.com/greenplum-db/gp-xerces.git")
+        self.run("git clone -b {0} https://github.com/apache/xerces-c.git".format(self.version))
+        self.run("cd xerces-c && ./reconf")
+
 
     def build(self):
         env_build = AutoToolsBuildEnvironment(self)
@@ -22,7 +23,7 @@ class GpxercesConan(ConanFile):
             if not self.options.shared:
                 config_args.append("--enable-shared")
             config_args.append("--prefix=" + self.build_folder + "/install")
-            env_build.configure(configure_dir="../gp-xerces/", args=config_args)
+            env_build.configure(configure_dir="../xerces-c/", args=config_args)
             env_build.make()
             env_build.make(args=["install"])
 
