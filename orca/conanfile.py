@@ -13,9 +13,10 @@ class OrcaConan(ConanFile):
     default_options = "shared=True"
     generators = "cmake"
     xerces_version = os.getenv('xerces_version')
+    export_sources = 
 
-    def source(self):
-        self.run("git clone -b {0} https://github.com/greenplum-db/gporca.git".format(self.version))
+    #def source(self):
+    #    self.run("git clone -b {0} https://github.com/greenplum-db/gporca.git".format(self.version))
 
     def requirements(self):
         self.requires("xerces-c/Xerces-C_3_1_2@gpdb/stable")
@@ -53,7 +54,8 @@ class OrcaConan(ConanFile):
             cmake_defines={
 			" XERCES_INCLUDE_DIR":   self.deps_cpp_info["xerces-c"].include_paths[0],
 			" XERCES_LIBRARY":       self.deps_cpp_info["xerces-c"].lib_paths[0] + "/libxerces-c.so",
-			" CMAKE_INSTALL_PREFIX": install_dir
+			" CMAKE_INSTALL_PREFIX": install_dir,
+                        " CMAKE_CXX_COMPILER" : "/usr/bin/gcc"
 			}
         cmake.configure(source_dir=src_dir, build_dir=build_dir, defs=cmake_defines)
         cmake.build(target="install")
