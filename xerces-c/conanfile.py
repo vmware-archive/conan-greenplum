@@ -18,6 +18,8 @@ class GpxercesConan(ConanFile):
     def build(self):
         env_build = AutoToolsBuildEnvironment(self)
         os.mkdir("build")
+        os.environ['CC'] = '/usr/bin/gcc'
+        os.environ['CXX'] = '/usr/bin/g++'
         with tools.chdir("build"):
             config_args = []
             if not self.options.shared:
