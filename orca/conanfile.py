@@ -55,7 +55,10 @@ class OrcaConan(ConanFile):
 			" XERCES_LIBRARY":       self.deps_cpp_info["xerces-c"].lib_paths[0] + "/libxerces-c.so",
 			" CMAKE_INSTALL_PREFIX": install_dir,
                         " CMAKE_CXX_COMPILER" : "/usr/bin/g++",
-                        " CMAKE_C_COMPILER" : "/usr/bin/gcc"
+                        " CMAKE_C_COMPILER" : "/usr/bin/gcc",
+                        " CONAN_COMPILER": "/usr/bin/gcc",
+                        " CONAN_COMPILER": "/usr/bin/gcc",
+                        "CONAN_COMPILER_VERSION": "4.1.2"
 			}
         cmake.configure(source_dir=src_dir, build_dir=build_dir, defs=cmake_defines)
         cmake.build(target="install")
