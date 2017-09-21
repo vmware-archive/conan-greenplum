@@ -13,9 +13,10 @@ class OrcaConan(ConanFile):
     default_options = "shared=True"
     generators = "cmake"
     xerces_version = os.getenv('xerces_version')
+    description = "Conan file to build orca"
 
-    #def source(self):
-    #    self.run("git clone -b {0} https://github.com/greenplum-db/gporca.git".format(self.version))
+    def source(self):
+        self.run("git clone -b {0} https://github.com/greenplum-db/gporca.git".format(self.version))
 
     def requirements(self):
         self.requires("xerces-c/Xerces-C_3_1_2@gpdb/stable")
