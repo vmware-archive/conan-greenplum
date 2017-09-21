@@ -13,7 +13,6 @@ class OrcaConan(ConanFile):
     default_options = "shared=True"
     generators = "cmake"
     xerces_version = os.getenv('xerces_version')
-    export_sources = 
 
     #def source(self):
     #    self.run("git clone -b {0} https://github.com/greenplum-db/gporca.git".format(self.version))
